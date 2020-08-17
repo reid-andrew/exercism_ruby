@@ -1,5 +1,9 @@
 class Grains
   def self.square(num)
+    raise ArgumentError.new(
+      'Invalid square'
+    ) if num < 1 || num > 64
+    
     board[num]
   end
 
