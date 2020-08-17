@@ -18,7 +18,12 @@ class School
     @enrolled[grade]
   end
 
-  # def students_by_grade
-  #
-  # end
+  def students_by_grade
+    return [] if @enrolled == {}
+
+    output = []
+    @enrolled.each do |key, value|
+      output << {grade: key, students: value}
+    end
+  end
 end
