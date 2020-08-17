@@ -3,7 +3,7 @@ class Grains
     raise ArgumentError.new(
       'Invalid square'
     ) if num < 1 || num > 64
-    
+
     board[num]
   end
 
@@ -17,5 +17,9 @@ class Grains
       grains *= 2
     end
     board
+  end
+
+  def self.total
+    board.sum { |key, value| value }
   end
 end
