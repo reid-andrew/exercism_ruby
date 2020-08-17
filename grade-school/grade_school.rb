@@ -22,8 +22,9 @@ class School
     return [] if @enrolled == {}
 
     output = []
-    @enrolled.each do |key, value|
-      output << {grade: key, students: value}
+    @enrolled.sort_by {|key, value| key }.each do |grade, students|
+      output << {grade: grade, students: students}
     end
+    output
   end
 end
