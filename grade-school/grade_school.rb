@@ -14,6 +14,6 @@ class School
   def students(grade)
     return [] if !@enrolled[grade]
 
-    @enrolled[grade]
+    @enrolled[grade].sort
   end
 end
