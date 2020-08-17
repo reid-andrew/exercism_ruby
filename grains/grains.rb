@@ -1,25 +1,25 @@
 class Grains
-  def self.square(num)
-    raise ArgumentError.new(
-      'Invalid square'
-    ) if num < 1 || num > 64
+  class << self
+    def square(num)
+      raise ArgumentError.new(
+        'Invalid square'
+      ) if num < 1 || num > 64
 
-    board[num]
-  end
-
-  def self.board
-    board ||= Hash.new
-    counter = 1
-    grains = 1
-    while counter < 65
-      board[counter] = grains
-      counter += 1
-      grains *= 2
+      board[num]
     end
-    board
-  end
 
-  def self.total
-    board.sum { |key, value| value }
+    def total
+      board.sum { |key, value| value }
+    end
+
+    def board(counter = 1, grains = 1)
+      board = Hash.new
+      while counter < 65
+        board[counter] = grains
+        counter += 1
+        grains *= 2
+      end
+      board
+    end
   end
 end
