@@ -1,8 +1,17 @@
-=begin
-Write your code for the 'Grains' exercise in this file. Make the tests in
-`grains_test.rb` pass.
+class Grains
+  def self.square(num)
+    board[num]
+  end
 
-To get started with TDD, see the `README.md` file in your
-`ruby/grains` directory.
-=end
-
+  def self.board
+    board ||= Hash.new
+    counter = 1
+    grains = 1
+    while counter < 65
+      board[counter] = grains
+      counter += 1
+      grains *= 2
+    end
+    board
+  end
+end
