@@ -39,7 +39,7 @@ class ChangeTest < Minitest::Test
   end
 
   def test_no_coins_make_0_change
-    skip
+    # skip
     assert_equal [], Change.generate([1, 5, 10, 21, 25], 0)
   end
 

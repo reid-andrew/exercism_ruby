@@ -30,13 +30,13 @@ class Change
       change << change_coin
       amount = amount - change_coin
     end
-    if change.sum == @amount
-      @options << change.sort
-      @short = @options.last.length if @options.last && !@short || @short > @options.last.length
-    end
-    available.shift
-    if available.length >= 1
-      find_options(available, @amount)
-    end
+    add_option(change) if change.sum == @amount
+    available.shift    
+    find_options(available, @amount) if available.length >= 1
+  end
+
+  def add_option(change)
+    @options << change.sort
+    @short = @options.last.length if @options.last && !@short || @short > @options.last.length
   end
 end
