@@ -1,29 +1,29 @@
 class Bst
-  attr_reader :right, :left
+  attr_reader :data, :right, :left
 
-  def initialize(value, left = nil, right = nil)
-    @value = value
+  def initialize(data, left = nil, right = nil)
+    @data = data
     @left = left
     @right = right
   end
 
-  def data
-    @value
+  def insert(value, node = self)
+    value > @data ? search_right(value) : search_left(value)
   end
 
-  def insert(value, node = self)
-    if value > @value
-      if !@right
-        @right = Bst.new(value)
-      else
-        @right.insert(value, @right)
-      end
-    else
-      if !@left
-        @left = Bst.new(value)
-      else
-        @left.insert(value, @left)
-      end
-    end
+  def search_right(value)
+    @right.nil? ? @right = Bst.new(value) : @right.insert(value, @right)
+  end
+
+  def search_left(value)
+    @left.nil? ? @left = Bst.new(value) : @left.insert(value, @left)
+  end
+
+  def each(&block)
+    return enum_for(:each) unless block_given?
+
+    @left.each(&block) if @left
+    block.call(data)
+    @right.each(&block) if @right
   end
 end
