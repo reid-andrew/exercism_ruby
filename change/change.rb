@@ -26,11 +26,14 @@ class Change
     available = coins.sort.reverse
     while amount > 0
       change_coin = available.find { |coin| coin <= amount }
+      break if !change_coin
       change << change_coin
       amount = amount - change_coin
     end
-    @options << change.sort if change.sum == @amount
-    @short = @options.last.length if !@short || @short > @options.last.length
+    if change.sum == @amount
+      @options << change.sort
+      @short = @options.last.length if @options.last && !@short || @short > @options.last.length
+    end
     available.shift
     if available.length >= 1
       find_options(available, @amount)
