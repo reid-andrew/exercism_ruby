@@ -15,6 +15,8 @@ class Scrabble
     end
   end
 
+  private
+
   def values
     {
       "D" => 2, "G" => 2,
