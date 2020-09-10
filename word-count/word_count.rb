@@ -1,7 +1,16 @@
-=begin
-Write your code for the 'Word Count' exercise in this file. Make the tests in
-`word_count_test.rb` pass.
+class Phrase
+  def initialize(phrase)
+    @phrase = phrase.gsub(',', ' ').gsub(/[^0-9a-z ]/i, '')
+  end
 
-To get started with TDD, see the `README.md` file in your
-`ruby/word-count` directory.
-=end
+  def word_count
+    words = @phrase.split(' ')
+    words.reduce({}) do |output, word|
+      output[word.downcase] += 1 if output[word.downcase]
+
+      output[word.downcase] = 1 if !output[word.downcase]
+
+      output
+   end
+  end
+end
