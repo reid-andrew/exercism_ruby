@@ -4,22 +4,25 @@ class Microwave
   end
 
   def timer
-    if @seconds < 100
-      minutes = @seconds / 60
-      minute_output = minutes < 10 ? "0#{minutes}" : "#{minutes}"
-      remainder = @seconds - (minutes * 60)
-      remainder_output = remainder < 10 ? "0#{remainder}" : "#{remainder}"
+    overflow_check(@seconds)
+    @seconds < 100 ? under_100 : over_100
+  end
 
-      "#{minute_output}:#{remainder_output}"
-    else
-      sec_string = @seconds.to_s
-      last_two = "#{sec_string[-2]}#{sec_string[-1]}".to_i
-      if last_two > 60
-        @seconds = @seconds - 60 + 100
-        sec_string = @seconds.to_s
-      end
-      first_two = @seconds < 999 ? "0#{sec_string[0]}" : "#{sec_string[0]}#{sec_string[1]}"
-      "#{first_two}:#{sec_string[-2]}#{sec_string[-1]}"
-    end
+  private
+
+  def under_100
+    minutes = @seconds / 60
+    second = @seconds - (minutes * 60)
+
+    "#{minutes < 10 ? "0#{minutes}" : "#{minutes}"}:#{second < 10 ? "0#{second}" : "#{second}"}"
+  end
+
+  def over_100
+    first_two = @seconds < 999 ? "0#{@seconds.to_s[0]}" : "#{@seconds.to_s[0..1]}"
+    "#{first_two}:#{@seconds.to_s[-2..-1]}"
+  end
+
+  def overflow_check(seconds)
+    @seconds = @seconds - 60 + 100 if "#{@seconds.to_s[-2..-1]}".to_i > 60
   end
 end
