@@ -1,15 +1,33 @@
 class Bob
-  def self.hey(remark)
-    remark = remark.strip
-    
-    return "Calm down, I know what I'm doing!" if remark == remark.upcase && remark[-1] == "?" && remark.count("a-zA-Z") > 0
+  class << self
+    def hey(remark)
+      remark = remark.strip
 
-    return "Whoa, chill out!" if remark == remark.upcase && remark.count("a-zA-Z") > 0
+      return "Calm down, I know what I'm doing!" if yell?(remark) &&
+                                                    question?(remark) &&
+                                                    letters?(remark)
 
-    return "Sure." if remark[-1] == "?"
+      return "Whoa, chill out!" if yell?(remark) &&
+                                   letters?(remark)
 
-    return "Fine. Be that way!" if remark.count("a-zA-Z") == 0 && remark.count("0-9") == 0
+      return "Sure." if question?(remark)
 
-    "Whatever."
+      return "Fine. Be that way!" if !letters?(remark) &&
+                                      remark.count("0-9") == 0
+
+      "Whatever."
+    end
+
+    def letters?(remark)
+      remark.count("a-zA-Z") > 0
+    end
+
+    def question?(remark)
+      remark[-1] == "?"
+    end
+
+    def yell?(remark)
+      remark == remark.upcase
+    end
   end
 end
