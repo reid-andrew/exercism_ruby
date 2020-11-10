@@ -18,6 +18,8 @@ class Bob
       "Whatever."
     end
 
+    private
+
     def letters?(remark)
       remark.count("a-zA-Z") > 0
     end
